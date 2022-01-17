@@ -38,18 +38,11 @@ public class addToCart extends Base{
                 + "new UiSelector().text(\"Jordan 6 Rings\"));");
 		
 		//Clicking the right Add to Cart Button
-		int itemCount=driver.findElementsById("com.androidsample.generalstore:id/productName").size();
-		int index=0;
-		for(index=0;index<itemCount;index++)
+		boolean blnFlag=clickAddtoCartOfItemByID(driver,"com.androidsample.generalstore:id/productName","Jordan 6 Rings");
+		if(!blnFlag)
 		{
-			String itemName=driver.findElementsById("com.androidsample.generalstore:id/productName").get(index).getText();
-			if(itemName.equalsIgnoreCase("jordan 6 rings"))
-			{
-				break;
-			}
+			System.out.println("Item Not Found !");
 		}
-		
-		driver.findElementsById("com.androidsample.generalstore:id/productAddCart").get(index).click();
 		
 		//Click Cart button
 		driver.findElementById("com.androidsample.generalstore:id/appbar_btn_cart").click();
@@ -57,6 +50,29 @@ public class addToCart extends Base{
 		String lastpageText=driver.findElementById("com.androidsample.generalstore:id/productName").getText();
 		System.out.println(lastpageText);
 		Assert.assertEquals("Jordan 6 Rings", lastpageText);
+	}
+	
+	public static boolean clickAddtoCartOfItemByID(AndroidDriver<AndroidElement> driver,String listID, String itemName)
+	{
+		int itemCount=driver.findElementsById(listID).size();
+		int index=0;
+		boolean blnFlag=false;
+		for(index=0;index<itemCount;index++)
+		{
+			String itmName=driver.findElementsById(listID).get(index).getText();
+			if(itmName.equalsIgnoreCase(itemName))
+			{
+				blnFlag=true;
+				break;
+			}
+		}
+		if(blnFlag==true)	
+		{
+			driver.findElementsById("com.androidsample.generalstore:id/productAddCart").get(index).click();
+			return blnFlag;
+		}
+		else
+			return blnFlag;
 	}
 	
 	public static boolean waitForElementByID(AndroidDriver<AndroidElement> driver, String targetResourceId)

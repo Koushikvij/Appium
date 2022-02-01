@@ -1,14 +1,9 @@
 package com.mobile.basics;
 
-import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
-import static io.appium.java_client.touch.offset.ElementOption.element;
-import static java.time.Duration.ofSeconds;
-
 import java.net.MalformedURLException;
 
-import org.openqa.selenium.WebElement;
+import com.mobile.objects.APIDemo.HomePage;
 
-import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 
@@ -16,8 +11,9 @@ public class scrollDemo extends Base{
 
 	public static void main(String[] args) throws MalformedURLException {
 		AndroidDriver<AndroidElement> driver=getDriver("emulator");
-		driver.findElementByXPath("//android.widget.TextView[@text='Views']").click();
-		
+		HomePage homePage=new HomePage(driver);
+		homePage.ViewLink.click();
+				
 		//scroll
 		driver.findElementByAndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(text(\"Radio Group\"));");
 		

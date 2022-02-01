@@ -1,9 +1,13 @@
 package com.mobile.basics;
 
 import java.net.MalformedURLException;
-import static java.time.Duration.ofSeconds;
 
-import org.openqa.selenium.WebElement;
+import com.mobile.objects.APIDemo.HomePage;
+import com.mobile.objects.APIDemo.Views;
+import com.mobile.objects.APIDemo.Views_ExpandableList;
+import com.mobile.objects.APIDemo.Views_ExpandableList_CustomAdaptor;
+
+import static java.time.Duration.ofSeconds;
 
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
@@ -16,18 +20,21 @@ public class tapAndLongPress extends Base{
 
 	public static void main(String[] args) throws MalformedURLException {
 		AndroidDriver<AndroidElement> driver=getDriver("emulator");
-		driver.findElementByAndroidUIAutomator("text(\"Views\")").click();
+		HomePage homePage=new HomePage(driver);
+		Views views=new Views(driver);
+		Views_ExpandableList expList=new Views_ExpandableList(driver);
+		Views_ExpandableList_CustomAdaptor customadaptor=new Views_ExpandableList_CustomAdaptor(driver);
+		
+		homePage.ViewLink.click();
 		
 		//Tap
 		TouchAction actions=new TouchAction(driver);
-		WebElement expList=driver.findElementByXPath("//android.widget.TextView[@text='Expandable Lists']");
-		actions.tap(tapOptions().withElement(element(expList))).perform();
-		driver.findElementByXPath("//android.widget.TextView[@text='1. Custom Adapter']").click();
+		actions.tap(tapOptions().withElement(element(views.ExpandableListLink))).perform();
+		expList.CustomAdapterLink.click();
 		
 		//Long Press
-		WebElement pplNames=driver.findElementByXPath("//android.widget.TextView[@text='People Names']");
-		actions.longPress(longPressOptions().withElement(element(pplNames)).withDuration(ofSeconds(2))).release().perform();
-		System.out.println(driver.findElementByXPath("//android.widget.TextView[@text='Sample menu']").isDisplayed());
+		actions.longPress(longPressOptions().withElement(element(customadaptor.PeopleNamesLink)).withDuration(ofSeconds(2))).release().perform();
+		System.out.println(customadaptor.SampleMenuLink.isDisplayed());
 	}
 
 }

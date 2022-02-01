@@ -1,6 +1,9 @@
 package com.mobile.basics;
 
 import java.net.MalformedURLException;
+
+import com.mobile.objects.APIDemo.HomePage;
+
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 
@@ -8,8 +11,11 @@ public class UIautomatorTest extends Base{
 
 	public static void main(String[] args) throws MalformedURLException {
 		AndroidDriver<AndroidElement> driver=getDriver("emulator");
+		HomePage homePage=new HomePage(driver);
+		homePage.ViewLink.click();
 		//driver.findElementByAndroidUIAutomator("attribute('value')"); -- format for UIAutomator identifier
-		driver.findElementByAndroidUIAutomator("text(\"Views\")").click();
+		//driver.findElementByAndroidUIAutomator("text(\"Views\")").click();
+		homePage.ViewLink.click();
 		//validate clickable feature for all options
 		//syntax to use the property values
 		//driver.findElementsByAndroidUIAutomator("new UiSelector().property_name(value)");

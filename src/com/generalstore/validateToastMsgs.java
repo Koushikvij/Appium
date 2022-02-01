@@ -4,6 +4,8 @@ import java.net.MalformedURLException;
 
 import org.testng.Assert;
 
+import com.mobile.objects.GeneralStore.FormPage;
+
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 
@@ -11,10 +13,11 @@ public class validateToastMsgs extends Base{
 
 	public static void main(String[] args) throws MalformedURLException {
 		AndroidDriver<AndroidElement> driver=getDriver("emulator");
+		FormPage formPage=new FormPage(driver);
 		
 		//The default class name for toast message is android.widget.Toast
-		driver.findElementById("com.androidsample.generalstore:id/btnLetsShop").click();
-		String toastMsgName = driver.findElementByXPath("//android.widget.Toast[1]").getAttribute("name");
+		formPage.LetsShopButton.click();		
+		String toastMsgName = formPage.ToastMessage.getAttribute("name");
 		System.out.println("Encountered the following error message:");
 		System.out.println(toastMsgName);		
 		Assert.assertEquals("Please enter your name",toastMsgName);

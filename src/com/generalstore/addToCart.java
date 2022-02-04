@@ -17,6 +17,7 @@ import io.appium.java_client.android.AndroidElement;
 public class addToCart extends Base{
 
 	public static void main(String[] args) throws MalformedURLException, InterruptedException {
+		startServer();
 		AndroidDriver<AndroidElement> driver=getDriver("emulator");
 		FormPage formPage=new FormPage(driver);
 		ProductDetailPage pdp=new ProductDetailPage(driver);
@@ -98,5 +99,6 @@ public class addToCart extends Base{
 		
 		// do more native testing if we want
 		driver.context((contextNames.toArray())[0].toString());
+		stopServer();
 	}
 }

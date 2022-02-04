@@ -8,9 +8,17 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 
 public class Base {
+	
+	public static AppiumDriverLocalService service;
 
+	public void startServer()
+	{
+		service=AppiumDriverLocalService.buildDefaultService();
+		service.start();
+	}
 	public static AndroidDriver<AndroidElement> getDriver(String deviceType) throws MalformedURLException{
 		// Setting the properties of Android Driver
 		File appDir=new File("src");
@@ -19,14 +27,14 @@ public class Base {
 		if(deviceType.equalsIgnoreCase("emulator"))
 		{
 			//Emulator based approach
-			cap.setCapability(MobileCapabilityType.DEVICE_NAME,"KoushikAndroid");			
+			cap.setCapability(MobileCapabilityType.DEVICE_NAME,"Pixel4");			
 		}
 		else if(deviceType.equalsIgnoreCase("realdevice"))
 		{
 			//Physical Device based approach
 			cap.setCapability(MobileCapabilityType.DEVICE_NAME,"Android Device");
 		}
-		cap.setCapability(MobileCapabilityType.BROWSER_NAME, "chrome");
+		//cap.setCapability(MobileCapabilityType.BROWSER_NAME, "chrome");
 		cap.setCapability(MobileCapabilityType.APP,app.getAbsolutePath());
 		cap.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
 		

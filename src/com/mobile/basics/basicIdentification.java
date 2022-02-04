@@ -12,7 +12,7 @@ import io.appium.java_client.android.AndroidElement;
 public class basicIdentification extends Base{
 	
 	public static void main(String[] args) throws MalformedURLException {
-		AndroidDriver<AndroidElement> driver=getDriver("realdevice");
+		AndroidDriver<AndroidElement> driver=getDriver("emulator");
 		//xpath syntax
 		//tagname[@attributename='value']
 		HomePage HP=new HomePage(driver);

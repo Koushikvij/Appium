@@ -2,14 +2,55 @@ package com.generalstore;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.net.ServerSocket;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 
 public class Base {
+	
+	public static AppiumDriverLocalService service;
+
+	public static void startServer()
+	{
+		boolean serverStatus=checkIfServerIsRunning(4723);
+		if(serverStatus)
+		{
+			service.stop();
+		}
+		service=AppiumDriverLocalService.buildDefaultService();
+		service.start();
+	}
+	
+	public static void stopServer()
+	{
+		service.stop();
+	}
+
+	public static boolean checkIfServerIsRunning(int port)
+	{
+		boolean isServerRunning=false;
+		ServerSocket serverSocket;
+		try {
+			serverSocket=new ServerSocket(port);
+			serverSocket.close();
+		}
+		catch(Exception e)
+		{
+			isServerRunning=true;
+		}
+		finally
+		{
+			serverSocket=null;
+		}
+		return isServerRunning;
+	}
+	
+	
 
 	public static AndroidDriver<AndroidElement> getDriver(String deviceType) throws MalformedURLException{
 		// Setting the properties of Android Driver
